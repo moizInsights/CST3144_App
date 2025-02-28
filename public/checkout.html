@@ -8,11 +8,47 @@
   <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
   <link rel="stylesheet" href="../node_modules/material-design-icons/iconfont/material-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+  <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
 </head>
 <body>
 
-<div id="checkoutApp" class="container">
-  <h1>Checkout</h1>
+<div id="checkoutApp">
+
+<header>
+    <nav class="nav-extended">
+        <div class="container nav-wrapper">
+          <a href="index.html" class="brand-logo"> <h1>{{ title }}</h1> </a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="credits.html">Credits</a></li>
+            <li><a href="checkout.html" class="active">Checkout</a></li>
+          </ul>
+        </div>
+        <div class="container nav-content">
+          <ul class="tabs tabs-transparent">
+            <li class="tab">
+              <a href="index.html">Home</a>
+            </li>
+            <li class="tab">
+              <a class="active" href="checkout.html">Checkout</a>
+            </li>
+        </div>
+      </nav>
+</header>
+
+<!-- Mobile Sidenav -->
+<ul id="mobile-demo" class="sidenav">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="credits.html">Credits</a></li>
+  <li><a href="checkout.html">Checkout</a></li>
+</ul>
+
+<div class="container">
+
+    <h2>Checkout</h2>
 
   <!-- Classes Grid -->
   <ul class="grid-container">
@@ -45,10 +81,18 @@
 new Vue({
   el: '#checkoutApp',
   data: {
+    title: "After School Class App",
     cart: [],
     name: '',
     phone: ''
   },
+  mounted() {
+
+// Initialize sidenav
+const sidenav = document.querySelectorAll('.sidenav');
+M.Sidenav.init(sidenav);
+
+},
   methods: {
     async checkout() {
       if (!this.name || !this.phone) {
