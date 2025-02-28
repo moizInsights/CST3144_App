@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>After School Class App</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+  <link rel="stylesheet" href="../node_modules/material-design-icons/iconfont/material-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+</head>
+<body>
+
+<div id="checkoutApp" class="container">
+  <h1>Checkout</h1>
+
+  <!-- Classes Grid -->
+  <ul class="grid-container">
+    <div class="col s12 m7" v-for="(item, index) in cart" :key="index">
+      <div class="card">
+        <div class="card-image">
+          <div class="card-image-container">
+            <img :src="'images/' + (item.image || 'default-image.jpg')" alt="Class Image">
+          </div>
+        </div>
+        <div class="card-content">
+          <h3>{{ item.name }}</h3>
+          <p>${{ item.price }} USD</p>
+        </div>
+      </div>
+    </div>
+  </ul>
+
+  <!-- Input Fields for Checkout -->
+  <input type="text" v-model="name" placeholder="Your Name">
+  <input type="text" v-model="phone" placeholder="Phone Number">
+
+  <button class="btn green" @click="checkout">Submit Booking</button>
+
+  <br/> <br/> <br/>
+
+</div>
+
+<script>
+new Vue({
+  el: '#checkoutApp',
+  data: {
+    cart: [],
+    name: '',
+    phone: ''
+  },
+  methods: {
+    async checkout() {
+      if (!this.name || !this.phone) {
+        alert("Please fill in both fields.");
+        return;
+      }
+
+      const booking = {
+        name: this.name,
+        phone: this.phone,
+        cart: this.cart
+      };
+
+      try {
+        const response = await fetch("http://localhost:3000/api/book", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(booking)
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+
+        const data = await response.text();
+        alert(data); // Display the response from the server
+
+        // Clear Cart from LocalStorage
+        localStorage.removeItem("cart");
+        this.cart = []; // Clear cart array
+
+        // Navigate to thank-you page
+        window.location.href = "thank-you.html";
+
+      } catch (error) {
+        alert(`There was an error with the booking: ${error.message}`);
+      }
+    }
+  },
+  created() {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      this.cart = JSON.parse(savedCart);
+    } else {
+      alert("No items in cart.");
+    }
+  }
+});
+</script>
+</body>
+</html>

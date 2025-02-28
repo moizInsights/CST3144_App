@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>After School Class App</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+  <link rel="stylesheet" href="../node_modules/material-design-icons/iconfont/material-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+</head>
+<body>
+<div id="app" class="container">
+  
+    <h1>{{ title }}</h1>
+
+  <!-- Classes Grid -->
+  <ul class="grid-container">
+    <div class="col s12 m7" v-for="(classItem, index) in classes" :key="index">
+      <div class="card">
+        <div class="card-image">
+          <div class="card-image-container">
+            <img :src="'images/' + (classItem.image || 'default-image.jpg')" alt="Class Image">
+          </div>
+          <button class="btn-floating halfway-fab waves-effect waves-light red" @click="addToCart(classItem)">
+            <i class="material-icons">add</i>
+          </button>
+        </div>
+        <div class="card-content">
+          <h3>{{ classItem.name }}</h3>
+          <p>{{ classItem.description }}</p>
+          <p>${{ classItem.price }} USD</p>
+        </div>
+      </div>
+    </div>
+  </ul>
+
+  <h2>Cart</h2>
+  <ul>
+    <li class="cart-item" v-for="(item, index) in cart" :key="index">
+      {{ item.name }} - ${{ item.price }}
+      <button class="btn red" @click="removeFromCart(index)">Remove</button> <!-- Delete Button -->
+    </li>
+  </ul>
+
+  <button 
+    class="btn green" 
+    :disabled="cart.length === 0" 
+    @click="goToCheckout">
+    Go to Checkout
+  </button>
+</div>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    title: "After School Class App",
+    classes: [
+      { name: "Chess Club", description: "Chess basics", price: 20, image: "chess-club.jpg" },
+      { name: "Drama Club", description: "Acting lessons", price: 15, image: "drama-theatre.jpg" }
+    ],
+    cart: []
+  },
+  methods: {
+    addToCart(classItem) {
+      this.cart.push(classItem);
+      localStorage.setItem("cart", JSON.stringify(this.cart)); // Save to localStorage
+    },
+    removeFromCart(index) {
+      this.cart.splice(index, 1); // Remove item from cart by index
+      localStorage.setItem("cart", JSON.stringify(this.cart)); // Update localStorage
+    },
+    goToCheckout() {
+      window.location.href = "checkout.html";
+    }
+  },
+  created() {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      this.cart = JSON.parse(savedCart);
+    }
+  }
+});
+</script>
+</body>
+</html>

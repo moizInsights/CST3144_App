@@ -1,0 +1,50 @@
+body {
+    font-family: "Belanosima", serif;
+} 
+
+ul {
+    padding-inline-start: 0px;
+    list-style: none;
+}
+
+#app ul li span {
+    display: block;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+    gap: 16px; /* space between grid items */
+}
+
+.grid-item {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+}
+
+.card h3 {
+    margin-top: 7px;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.5; /* Grayed out */
+    cursor: not-allowed;
+}  
+
+.cart-item {
+    margin: 15px 0px;
+}
+
+.card h3 {
+    font-size: 1.9rem;
+}
+
+.card-image .card-image-container {
+    height: 165px;
+    overflow: hidden;
+}
