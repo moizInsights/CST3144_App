@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>After School Class App</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
+  <link rel="stylesheet" href="../node_modules/material-design-icons/iconfont/material-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+  <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
+</head>
+<body>
+
+<div id="checkoutApp">
+
+<header>
+    <nav class="nav-extended">
+        <div class="container nav-wrapper">
+          <a href="index.html" class="brand-logo"> <h1>{{ title }}</h1> </a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="credits.html">Credits</a></li>
+            <li><a href="checkout.html" class="active">Checkout</a></li>
+          </ul>
+        </div>
+        <div class="container nav-content">
+          <ul class="tabs tabs-transparent">
+            <li class="tab">
+              <a href="index.html">Home</a>
+            </li>
+            <li class="tab">
+              <a class="active" href="checkout.html" disabled>Checkout</a>
+            </li>
+        </div>
+      </nav>
+</header>
+
+<!-- Mobile Sidenav -->
+<ul id="mobile-demo" class="sidenav">
+  <li><a href="index.html">Home</a></li>
+  <li><a href="credits.html">Credits</a></li>
+  <li><a href="checkout.html" disabled>Checkout</a></li>
+</ul>
+
+<div class="container">
+
+    <h2>Image Credits</h2>
+
+    <p>Photo by JESHOOTS.com: https://www.pexels.com/photo/person-playing-chess-1040157/</p>
+  
+    <p>Photo by Monica Silvestre: https://www.pexels.com/photo/people-at-theater-713149/</p>
+  
+    <p>Photo by picjumbo.com: https://www.pexels.com/photo/white-printer-paper-196645/</p>
+  
+    <p>Photo by Noelle Otto: https://www.pexels.com/photo/woman-athletes-playing-soccer-906073/</p>
+  
+    <p>Photo by Chokniti Khongchum: https://www.pexels.com/photo/photo-of-female-scientist-working-on-laboratory-3938023/</p>
+  
+    <p>Photo by Luis Quintero: https://www.pexels.com/photo/close-up-photo-of-dslr-camera-1787220/</p>
+  
+    <p>Photo by Vanessa Loring: https://www.pexels.com/photo/boy-in-denim-jacket-holding-a-toy-with-electric-wires-and-wheel-7869091/</p>
+  
+    <p>Photo by cottonbro studio: https://www.pexels.com/photo/blurry-photo-of-girl-and-boy-spinning-6725085/</p>
+  
+    <p>Photo by Photo By: Kaboompics.com: https://www.pexels.com/photo/woman-putting-plants-on-pots-4751969/</p>
+  
+    <p>Photo by Engin Akyurt: https://www.pexels.com/photo/flat-lay-photography-of-variety-of-vegetables-1435904/</p>
+  
+
+  <br/> <br/> <br/>
+
+</div>
+
+<script>
+new Vue({
+  el: '#checkoutApp',
+  data: {
+    title: "After School Class App",
+    cart: [],
+    name: '',
+    phone: ''
+  },
+  mounted() {
+
+    // Initialize sidenav
+    const sidenav = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(sidenav);
+
+  }
+});
+</script>
+
+</body>
+</html>
