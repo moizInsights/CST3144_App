@@ -8,15 +8,49 @@
   <link rel="stylesheet" href="../node_modules/materialize-css/dist/css/materialize.min.css">
   <link rel="stylesheet" href="../node_modules/material-design-icons/iconfont/material-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8"></script>
+  <script src="../node_modules/materialize-css/dist/js/materialize.min.js"></script>
 </head>
 <body>
-<div id="app" class="container">
-  
-    <h1>{{ title }}</h1>
+
+<div id="app">
+
+<header>
+    <nav class="nav-extended">
+        <div class="container nav-wrapper">
+          <a href="index.html" class="brand-logo"> <h1>{{ title }}</h1> </a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="credits.html">Credits</a></li>
+            <li><a href="checkout.html" disabled>Checkout</a></li>
+          </ul>
+        </div>
+        <div class="container nav-content">
+          <ul class="tabs tabs-transparent">
+            <li class="tab">
+              <a class="active" href="index.html">Home</a>
+            </li>
+            <li class="tab disabled">
+              <a href="checkout.html" disabled>Checkout</a>
+            </li>
+        </div>
+      </nav>
+</header>
+
+<!-- Mobile Sidenav -->
+<ul id="mobile-demo" class="sidenav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="credits.html">Credits</a></li>
+    <li><a href="checkout.html" disabled>Checkout</a></li>
+</ul>
+
+<div class="container">
 
   <!-- Classes Grid -->
   <ul class="grid-container">
-    <div class="col s12 m7" v-for="(classItem, index) in classes" :key="index">
+    <div class="col s12 m7 16" v-for="(classItem, index) in classes" :key="index">
       <div class="card">
         <div class="card-image">
           <div class="card-image-container">
@@ -35,6 +69,8 @@
     </div>
   </ul>
 
+  <hr/>
+
   <h2>Cart</h2>
   <ul>
     <li class="cart-item" v-for="(item, index) in cart" :key="index">
@@ -49,6 +85,13 @@
     @click="goToCheckout">
     Go to Checkout
   </button>
+
+  <br/><br/><br/>
+
+  <hr/>
+
+  <br/><br/><br/>
+  
 </div>
 
 <script>
@@ -57,8 +100,16 @@ new Vue({
   data: {
     title: "After School Class App",
     classes: [
-      { name: "Chess Club", description: "Chess basics", price: 20, image: "chess-club.jpg" },
-      { name: "Drama Club", description: "Acting lessons", price: 15, image: "drama-theatre.jpg" }
+      { name: "Chess Club", description: "Learn how to play chess with fun puzzles, practice matches.", price: 5, image: "chess-club.jpg" },
+      { name: "Drama Club", description: "Become a stage king or queen. Role-play and fun games.", price: 10, image: "drama.jpg" },
+      { name: "Coding for Kids", description: "We build websites and fun games.", price: 30, image: "coding.jpg" },
+      { name: "Football Training", description: "Fun football training focused on dribbling, passing and teamwork.", price: 25, image: "football.jpg" },
+      { name: "Science Club", description: "Fun experiments in our science lab.", price: 35, image: "science.jpg" },
+      { name: "Dance Classes", description: "Music and dance.", price: 10, image: "dance.jpg" },
+      { name: "Cooking & Catering", description: "Baking and cookery lessons - making pizzas, cupcakes and healthy snacks.", price: 35, image: "cookery.jpg" },
+      { name: "Robotics Club", description: "Build and code simple robots.", price: 35, image: "robotics.jpg" },
+      { name: "Photography workshop", description: "Learn basic photography and photo editing skills.", price: 30, image: "photography.jpg" },
+      { name: "Gardening Club", description: "Plant flowers and vegetables. Learn about nature.", price: 27, image: "gardening.jpg" }
     ],
     cart: []
   },
@@ -80,8 +131,24 @@ new Vue({
     if (savedCart) {
       this.cart = JSON.parse(savedCart);
     }
+  },
+  mounted() {
+    // Re-initialize tabs
+    const tabs = document.querySelectorAll('.tabs');
+    M.Tabs.init(tabs);
+
+    // Initialize sidenav
+    const sidenav = document.querySelectorAll('.sidenav');
+    M.Sidenav.init(sidenav);
+
+    // Retrieve Cart from LocalStorage
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      this.cart = JSON.parse(savedCart);
+    }
   }
 });
 </script>
+</div>
 </body>
 </html>
